@@ -15,7 +15,7 @@
 .blueteam{
     position: absolute;
     top: 35%;
-    right: 30%;
+    right: 32%;
     font-size: 22px;
     color: black;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -36,6 +36,7 @@ em{
     padding: 20px 20px;
     border: 2px solid #3a8cf0;
     border-radius: 4px;
+    font-size: 18px;
 }
 
 .inputbox::placeholder {
@@ -46,8 +47,8 @@ em{
 .buttonstyle{
     position: absolute;
     top: 45%;
-    left: 72.2%;
-    padding: 18.5px 25px;
+    left: 72.5%;
+    padding: 21px 25px;
     border: 2px solid #1f6cc9;
     border-radius: 4px;
     background-color: rgb(120, 120, 236);
