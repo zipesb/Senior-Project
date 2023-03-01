@@ -1,0 +1,61 @@
+.homestuff{
+    
+}
+
+.title{
+    position: absolute;
+    top: 30%;
+    right: 50%;
+    font-size: 50px;
+    color: black;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-bottom: 10px;
+}
+
+.blueteam{
+    position: absolute;
+    top: 35%;
+    right: 30%;
+    font-size: 22px;
+    color: black;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-bottom: 10px;
+    font-weight: lighter;
+}
+
+em{
+    color: #3a8cf0;
+    font-style: normal;
+}
+
+.inputbox{
+    position: absolute;
+    top: 45%;
+    left: 20%; 
+    width: 50%;
+    padding: 20px 20px;
+    border: 2px solid #3a8cf0;
+    border-radius: 4px;
+}
+
+.inputbox::placeholder {
+    font-size: 18px;
+
+}
+
+.buttonstyle{
+    position: absolute;
+    top: 45%;
+    left: 72.2%;
+    padding: 18.5px 25px;
+    border: 2px solid #1f6cc9;
+    border-radius: 4px;
+    background-color: rgb(120, 120, 236);
+    
+}
+
+.buttonstyle a {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}

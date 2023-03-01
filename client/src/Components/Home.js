@@ -12,19 +12,23 @@ function Home() {
             }
         });
     };
+
+    
     return (
-        <div>
-            <h2> Input a URL</h2>
-            <input
-                type="text"
-                placeholder="Website URL"
-                value={inputURL}
-                onChange={(e) => setURL(e.target.value)}
-              />
-            <button onClick={securityTest}> Enter </button> 
-        </div>
+        <div className="homestuff">
+        <h1 className="title"> One-Stop Web Security </h1>
+        <h2 className="blueteam"> By The <em>Blue</em> Team</h2>
+        <input className="inputbox"
+            type="text"
+            placeholder="Website URL, Host Name, IP Address"
+            value={inputURL}
+            onChange={(e) => setURL(e.target.value)}
+          />
+          <button className="buttonstyle" onClick={securityTest}> <a> Scan </a> </button> 
+    </div>
     );
 }
+
 
 
 export default Home;
