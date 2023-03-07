@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-
 function Home() {
     const [inputURL, setURL] = useState('');
     const navigate = useNavigate();
