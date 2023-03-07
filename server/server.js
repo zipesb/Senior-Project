@@ -71,7 +71,27 @@ exec(horusec, (error, stdout, stderr) => {
     var link = '';
     if (index != -1) {
       link = details.substring(index+1, details.indexOf(')', index));
+      const axios = require('axios');
+//FIGURE OUT HOW TO ADD POTENTIAL MITIGATIONS TO THE OTHER SHIT
+      axios.get(link)
+        .then(response => {
+          const { JSDOM } = require('jsdom');
+          var html = response.data;
+
+          var dom = new JSDOM(html);
+          var document = dom.window.document;
+
+          var data = document.body.textContent;
+
+          let index = data.indexOf('Potential Mitigations');
+          var mit = data.substring(index, data.indexOf('Memberships', index));
+          //console.log(mit);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
+
     vul = 'Severity: ' + severity + '\n' + 'File: ' + file.substring(file.indexOf(dir)) + line + code + details.substring(0, details.indexOf('For more information')) + '\nMore Information: ' + link;
 
 
