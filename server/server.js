@@ -9,27 +9,39 @@ app.use(express.json());
 // get driver connection
 //const dbo = require("./db/conn");
 
+const wfuzzCommand = 'wfuzz -z file,wordlist/general/common.txt http://localhost:3000/FUZZ';
 
 var exec = require('child_process').exec;
 
-const wfuzzCommand = 'wfuzz -z file,wordlist/general/common.txt http://localhost:3000/FUZZ';
-const dir = 'Herbboy-Dummy-Website';
-const unzip = 'tar -xf ' + dir + '.zip';
-const horusec = 'horusec.exe start -p "./' + dir + '" -D true';
+async function run(dir) {
+  const horusec = 'horusec.exe start -p "./' + dir + '" -D true';
+  const unzip = 'tar -xf ' + dir + '.zip';
 
-exec(unzip, (error) => {
-  if(error) {
-    console.error(`exec error: ${error}`);
-    return;
-  }
-});
+  await new Promise((resolve, reject) => {
+    exec(unzip, (error, stdout) => {
+      if(error) {
+        reject(error);
+      }
+      else {
+        resolve(stdout);
+      }
+    });
+  });
 
-exec(horusec, (error, stdout, stderr) => {
-  if(error) {
-    console.error(`exec error: ${error}`);
-    return;
-  }
+  const { stdout } = await new Promise((resolve, reject) => {
+    exec(horusec, (error, stdout, stderr) => {
+      if(error) {
+        reject(error);
+      }
+      else {
+        resolve({stdout, stderr});
+      }
+    });
+  });
+
   const vulnArray = stdout.split('==================================================================================');
+  vulnArray.pop();
+
   var low = [];
   var medium = [];
   var high = [];
@@ -72,7 +84,7 @@ exec(horusec, (error, stdout, stderr) => {
     if (index != -1) {
       link = details.substring(index+1, details.indexOf(')', index));
       const axios = require('axios');
-//FIGURE OUT HOW TO ADD POTENTIAL MITIGATIONS TO THE OTHER SHIT
+
       axios.get(link)
         .then(response => {
           const { JSDOM } = require('jsdom');
@@ -81,58 +93,92 @@ exec(horusec, (error, stdout, stderr) => {
           var dom = new JSDOM(html);
           var document = dom.window.document;
 
-          var data = document.body.textContent;
+          var html = document.getElementById('Potential_Mitigations');
+          var data = html.textContent;
 
-          let index = data.indexOf('Potential Mitigations');
-          var mit = data.substring(index, data.indexOf('Memberships', index));
-          //console.log(mit);
+          var mits = data.split('            ');
+          mits.shift();
+
+          var mitigations = 'Potential Mitigations:\n\n';
+          mits.forEach(mit => {
+            const regex = /(?<=[a-z])[A-Z](?=[a-z])/;
+            
+            var newStr = mit.replace(regex, "\n$&");
+            while(newStr !== mit) {
+              mit = newStr;
+              newStr = mit.replace(regex, "\n$&");
+            }
+            mitigations += mit + '\n';
+          });
+          mitigations += 'Link: ' + link;
+          vul = 'Severity: ' + severity + '\n' + 'File: ' + file.substring(file.indexOf(dir)) + line + code 
+                + details.substring(0, details.indexOf('For more information')) + '\n\n' + mitigations;
+
+          if(severity === 'LOW') {
+            low.push(vul);
+          }
+          if(severity === 'MEDIUM') {
+            medium.push(vul);
+          }
+          if(severity === 'HIGH') {
+            high.push(vul);
+          }
+          if(severity === 'CRITICAL') {
+            critical.push(vul);
+          }
+
+          console.log('LOW THREATS\n\n');
+          low.forEach((element) => {
+            console.log(element + '\n\n');
+          });
+
+          console.log('MEDIUM THREATS\n\n');
+          medium.forEach((element) => {
+            console.log(element + '\n\n');
+          });
+
+          console.log('HIGH THREATS\n\n');
+          high.forEach((element) => {
+            console.log(element + '\n\n');
+          });
+
+          console.log('CRITICAL THREATS\n\n');
+          critical.forEach((element) => {
+            console.log(element + '\n\n');
+          });
         })
         .catch(error => {
           console.log(error);
         });
     }
-
-    vul = 'Severity: ' + severity + '\n' + 'File: ' + file.substring(file.indexOf(dir)) + line + code + details.substring(0, details.indexOf('For more information')) + '\nMore Information: ' + link;
-
-
-    if(severity === 'LOW') {
-      low.push(vul);
-    }
-    if(severity === 'MEDIUM') {
-      medium.push(vul);
-    }
-    if(severity === 'HIGH') {
-      high.push(vul);
-    }
-    if(severity === 'CRITICAL') {
-      critical.push(vul);
-    }
-    //console.log(severity);
   });
 
-  console.log('LOW THREATS\n\n');
-  low.forEach((element) => {
-    console.log(element + '\n\n');
+  await new Promise((resolve, reject) => {
+    exec('del /f /s /q ' + dir, (error, stdout) => {
+      if(error) {
+        reject(error);
+      }
+      else {
+        resolve(stdout);
+      }
+    });
   });
 
-  console.log('MEDIUM THREATS\n\n');
-  medium.forEach((element) => {
-    console.log(element + '\n\n');
+  await new Promise((resolve, reject) => {
+    exec('echo y|rmdir /s ' + dir, (error, stdout) => {
+      if(error) {
+        reject(error);
+      }
+      else {
+        resolve(stdout);
+      }
+    });
   });
+  
+}
 
-  console.log('HIGH THREATS\n\n');
-  high.forEach((element) => {
-    console.log(element + '\n\n');
-  });
-
-  console.log('CRITICAL THREATS\n\n');
-  critical.forEach((element) => {
-    console.log(element + '\n\n');
-  });
-
-  //console.log(`stdout: ${stdout}`);
-});
-
+const dir = 'Herbboy-Dummy-Website';
+run(dir);
 
 /*
 app.listen(port, () => {
