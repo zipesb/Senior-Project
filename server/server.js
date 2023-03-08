@@ -101,8 +101,23 @@ async function run(dir) {
 
           var mitigations = 'Potential Mitigations:\n\n';
           mits.forEach(mit => {
-            const regex = /(?<=[a-z])[A-Z](?=[a-z])/;
             
+            mit = mit.replace('Policy ', 'Policy\n');
+            mit = mit.replace('Requirements ', 'Requirements\n');
+            mit = mit.replace('Architecture and Design ', 'Architecture and Design\n');
+            mit = mit.replace('Implementation ', 'Implementation\n');
+            mit = mit.replace('Build and Compilation ', 'Build and Compilation\n');
+            mit = mit.replace('Testing ', 'Testing\n');
+            mit = mit.replace('Documentation ', 'Documentation\n');
+            mit = mit.replace('Bundling ', 'Bundling\n');
+            mit = mit.replace('Distribution ', 'Distribution\n');
+            mit = mit.replace('Installation ', 'Installation\n');
+            mit = mit.replace('System Configuration ', 'System Configuration\n');
+            mit = mit.replace('Operation ', 'Operation\n');
+            mit = mit.replace('Patching and Maintenance ', 'Patching and Maintenance\n');
+            mit = mit.replace('Porting ', 'Porting\n');
+
+            const regex = /(?<=[a-z])[A-Z](?=[a-z])/;
             var newStr = mit.replace(regex, "\n$&");
             while(newStr !== mit) {
               mit = newStr;
