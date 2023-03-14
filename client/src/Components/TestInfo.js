@@ -3,24 +3,35 @@ import { useState } from "react";
 import "../Styles/testdd.css";
 
 function TestInfo(props){
+    const tests = props.tests;
     const testName = props.testName;
-    const[isListOpen, setIsListOpen] = useState(true);
 
-    function handleClick() {
-        setIsListOpen(!isListOpen);
+    const[open, setOpen] = useState(false);
+
+    function toggle() {
+        setOpen(!open);
     }
 
     return(
         <div>
-            <button type="button" className="dd-header"
-            onClick = {handleClick}
-            >
+            <button className="dropdown" onClick={toggle}> 
             <a className="testname">{testName}</a>
-            {isListOpen
-            ? <span class="fa-solid fa-angle-up"/>
-            : <span class="fa-solid fa-angle-down"/>
+            {open
+            ? <span class="fa-solid fa-angle-up fa-lg"/> 
+            : <span class="fa-solid fa-angle-down fa-lg"/>
             }
-            </button>
+             </button>
+            {open && (
+                <div className='content'> 
+                    {tests.map((test) => (
+                        <div className="test" key={test.id}>
+                            <h2>{test.title}</h2>
+                            <p>{test.body}</p>
+                        </div>
+                    ))} 
+                </div>
+            )}
+            
         </div>
     );
 }

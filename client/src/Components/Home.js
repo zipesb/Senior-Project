@@ -1,6 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../Styles/home.css";
+import FileUpload from "./FileUpload";
 
 
 function Home() {
@@ -14,7 +15,13 @@ function Home() {
         });
     };
 
-    
+    const [files, setFiles] = useState([{
+        name: "myFile.pdf"
+    }])
+
+    function removeFile(filename) {
+        setFiles(files.filter(file => file.name !== filename))
+    }
     return (
         <div className="homestuff">
         <h1 className="title"> One-Stop Web Security </h1>
@@ -25,7 +32,8 @@ function Home() {
             value={inputURL}
             onChange={(e) => setURL(e.target.value)}
           />
-          <button className="buttonstyle" onClick={securityTest}> <a> Scan </a> </button> 
+          <button className="buttonstyle" type="submit" onClick={securityTest}> <a> Scan </a> </button> 
+          <FileUpload files={files} setFiles={setFiles} removeFile={removeFile}/>
     </div>
     );
 }
