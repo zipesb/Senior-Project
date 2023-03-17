@@ -3,11 +3,19 @@ import { useState } from "react";
 import "../Styles/home.css";
 import FileUpload from "./FileUpload";
 
-
 function Home() {
     const [inputURL, setURL] = useState('');
     const navigate = useNavigate();
-    const securityTest = (url) => {
+    const securityTest = () => {
+        fetch('http://localhost:5000/server', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: inputURL })
+        })
+        .then(res => res.json())
+        .then(response => this.setState({ response }));
         navigate("/report", {
             state: {
                 url: inputURL

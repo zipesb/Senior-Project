@@ -7,22 +7,26 @@ function FileUpload({files, setFiles, removeFile}) {
 
     function uploadHandler(event) {
         const file = event.target.files[0];
-        file.isUploading = true;
-        setFiles([...files, file])
+        //file.isUploading = true;
+        //setFiles([...files, file])
 
         const formData = new FormData();
-        formData.append (
-            file.name, file, file.name
-        )
+        formData.append ("file", file);
 
-        axios.post('http://localhost:5000/upload', formData)
+        axios.post('http://localhost:5000/upload', formData, {
+            method: 'POST',
+            headers: {
+             'Content-Type': 'multipart/form-data'
+            },
+        })
         .then((res) => {
-            file.isUploading = false;
-            setFiles([...files, file])
+            //file.isUploading = false;
+            //setFiles([...files, file])
+            console.log(res);
         })
         .catch((err) => {
             console.error(err)
-            removeFile(file.name)
+            //removeFile(file.name)
         })
     }
 
