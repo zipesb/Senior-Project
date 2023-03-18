@@ -28,7 +28,8 @@ function TestInfo(props){
                             <h2>{test.title}</h2>
                             <pre>{test.body}</pre>
                         </div>
-                    ))} 
+                    ))}
+                    {tests.length === 0 && <h2>No Results</h2>}
                 </div>
             )}
             
