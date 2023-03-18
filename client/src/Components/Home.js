@@ -15,7 +15,6 @@ function Home() {
             body: JSON.stringify({ message: inputURL })
         })
         .then(res => res.json())
-        .then(response => this.setState({ response }));
         navigate("/report", {
             state: {
                 url: inputURL

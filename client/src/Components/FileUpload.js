@@ -20,13 +20,10 @@ function FileUpload({files, setFiles, removeFile}) {
             },
         })
         .then((res) => {
-            //file.isUploading = false;
-            //setFiles([...files, file])
             console.log(res);
         })
         .catch((err) => {
             console.error(err)
-            //removeFile(file.name)
         })
     }
 

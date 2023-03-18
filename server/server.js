@@ -22,10 +22,11 @@ const dbo = require("./db/conn");
 app.post('/server', (req, res) => {
   const message = req.body.message;
   res.json(`Received URL: ${message}`);
-  console.log(message);
+  //console.log(message);
 })
 
 const multer = require("multer");
+const { stat } = require("fs");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -38,14 +39,21 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.post('/upload', upload.single("file"), (req, res) => {
+var staticData = null;
+app.post('/upload', upload.single("file"), async (req, res) => {
   const file = req.file;
   var dir = file.filename;
   dir = dir.substring(0, dir.indexOf('.'));
-  getStaticResult(dir);
+  staticData = await getStaticResult(dir);
 
-  res.json('Received file');
-})
+  
+  app.get('/results', (req, res) => {
+    res.send(JSON.stringify(staticData));
+    staticData = 'Loading';
+  });
+
+  res.json(`Received File: ${dir}`);
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
@@ -53,74 +61,8 @@ app.listen(port, () => {
 
 
 async function getStaticResult(dir) {
-  let data = await staticTest(dir);
-
-  
-  let brokenAccess = data[0];
-  console.log('Broken Access\n\n');
-  brokenAccess.forEach((element) => {
-    console.log(element);
-  });
-
-  let cryptFailures = data[1];
-  console.log('Crypt Fail\n\n');
-  cryptFailures.forEach((element) => {
-    console.log(element);
-  });
-
-  let injection = data[2];
-  console.log('Injection\n\n');
-  injection.forEach((element) => {
-    console.log(element);
-  });
-
-  let insecureDesign = data[3];
-  console.log('Insecure Design\n\n');
-  insecureDesign.forEach((element) => {
-    console.log(element);
-  });
-
-  let securityMisconf = data[4];
-  console.log('Security Misconf\n\n');
-  securityMisconf.forEach((element) => {
-    console.log(element);
-  });
-
-  let outdatedComp = data[5];
-  console.log('Outdated Comp\n\n');
-  outdatedComp.forEach((element) => {
-    console.log(element);
-  });
-
-  let authFail = data[6];
-  console.log('Auth Fail\n\n');
-  authFail.forEach((element) => {
-    console.log(element);
-  });
-
-  let dataIntegrityFail = data[7];
-  console.log('Data Fail\n\n');
-  dataIntegrityFail.forEach((element) => {
-    console.log(element);
-  });
-
-  let loggingFail = data[8];
-  console.log('Logging Fail\n\n');
-  loggingFail.forEach((element) => {
-    console.log(element);
-  });
-
-  let requestForg = data[9];
-  console.log('Request Forg\n\n');
-  requestForg.forEach((element) => {
-    console.log(element);
-  });
-/*
-  let misc = data[10];
-  console.log('Misc\n\n');
-  misc.forEach((element) => {
-    console.log(element);
-  });*/
+  var data = await staticTest(dir);
+  return data;
 }
 
 

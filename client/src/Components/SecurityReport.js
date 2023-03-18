@@ -1,7 +1,8 @@
-import { useLocation} from "react-router-dom"
-import {useState} from "react"
+import { useLocation} from "react-router-dom";
+import {useState} from "react";
+import React, { useEffect } from 'react';
 import "../Styles/report.css";
-import TestInfo from "./TestInfo.js"
+import TestInfo from "./TestInfo.js";
 import Scan from "./Scan";
 
 function SecurityReport() {
@@ -21,6 +22,21 @@ function SecurityReport() {
     let bacTests = [];
     let cfTests = [];
     
+    var data = null;
+
+    useEffect(() => {
+        
+        if(data === null) {
+            data = getData();
+        }
+        
+        data.then(value => {
+            console.log(value);
+            cfTests = value[2];
+        });
+
+    }, [])
+    
     for (let i=0; i<tests.length; i++) {
         if (tests[i].category === "Broken Access Control") {
             bacTests.push(tests[i]);
@@ -29,7 +45,6 @@ function SecurityReport() {
             cfTests.push(tests[i]);
         }
     }
-    
     return (
         <div>
             <div className="r1">
@@ -47,5 +62,19 @@ function SecurityReport() {
         </div>
     );
 }
+
+async function getData() {
+    var response = await fetch('http://localhost:5000/results');
+    var data = await response.json();
+
+    while(data === 'Loading') {
+        await new Promise(resolve => setTimeout(resolve, 10000));
+        console.log('Waiting...');
+        response = await fetch('http://localhost:5000/results');
+        data = await response.json();
+    }
+    return data;
+}
+  
 
 export default SecurityReport;
