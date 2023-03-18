@@ -167,7 +167,7 @@ async function staticTest(dir) {
       var mitigations = await getMits(link);
 
       // Combining all the information picked out from horusec
-      vul = 'Severity: ' + severity + '\n' + 'File: ' + file.substring(file.indexOf(dir)) + line + code 
+      vul = 'Severity: ' + severity + '\n\n' + 'File: ' + file.substring(file.indexOf(dir)) + '\n' + line + '\n' + code + '\n'
            + details.substring(0, details.indexOf('For more information')) + '\n\n' + mitigations;
 
       // Getting vulnerability number

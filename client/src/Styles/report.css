@@ -13,6 +13,12 @@ h2 {
     color: #2681f1;
 }
 
+pre {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
 .scan {
     margin-top: 1%;
     margin-left: 27%;
