@@ -42,7 +42,6 @@ app.post('/upload', upload.single("file"), (req, res) => {
   const file = req.file;
   var dir = file.filename;
   dir = dir.substring(0, dir.indexOf('.'));
-  // TODO: Send information back to the client
   getStaticResult(dir);
 
   res.json('Received file');
@@ -55,7 +54,73 @@ app.listen(port, () => {
 
 async function getStaticResult(dir) {
   let data = await staticTest(dir);
-  console.log(data[0]);
+
+  
+  let brokenAccess = data[0];
+  console.log('Broken Access\n\n');
+  brokenAccess.forEach((element) => {
+    console.log(element);
+  });
+
+  let cryptFailures = data[1];
+  console.log('Crypt Fail\n\n');
+  cryptFailures.forEach((element) => {
+    console.log(element);
+  });
+
+  let injection = data[2];
+  console.log('Injection\n\n');
+  injection.forEach((element) => {
+    console.log(element);
+  });
+
+  let insecureDesign = data[3];
+  console.log('Insecure Design\n\n');
+  insecureDesign.forEach((element) => {
+    console.log(element);
+  });
+
+  let securityMisconf = data[4];
+  console.log('Security Misconf\n\n');
+  securityMisconf.forEach((element) => {
+    console.log(element);
+  });
+
+  let outdatedComp = data[5];
+  console.log('Outdated Comp\n\n');
+  outdatedComp.forEach((element) => {
+    console.log(element);
+  });
+
+  let authFail = data[6];
+  console.log('Auth Fail\n\n');
+  authFail.forEach((element) => {
+    console.log(element);
+  });
+
+  let dataIntegrityFail = data[7];
+  console.log('Data Fail\n\n');
+  dataIntegrityFail.forEach((element) => {
+    console.log(element);
+  });
+
+  let loggingFail = data[8];
+  console.log('Logging Fail\n\n');
+  loggingFail.forEach((element) => {
+    console.log(element);
+  });
+
+  let requestForg = data[9];
+  console.log('Request Forg\n\n');
+  requestForg.forEach((element) => {
+    console.log(element);
+  });
+/*
+  let misc = data[10];
+  console.log('Misc\n\n');
+  misc.forEach((element) => {
+    console.log(element);
+  });*/
 }
 
 
@@ -111,7 +176,8 @@ async function staticTest(dir) {
   var misc = [];
 
   // Begin vulnArray forEach loop
-  vulnArray.forEach((element) => {
+  await new Promise((resolve, reject) => {
+    vulnArray.forEach(async (element) => {
     // Picking through the information given by the output of Horusec
     var vul = '';
 
@@ -156,69 +222,17 @@ async function staticTest(dir) {
     if (index != -1) {
       // Getting the link, setting up the GET request
       link = details.substring(index+1, details.indexOf(')', index));
-      const axios = require('axios');
-      
-      // Begin GET request
-      axios.get(link)
-        .then(response => {
-          // Getting the html code from the URL
-          const { JSDOM } = require('jsdom');
-          var html = response.data;
+      var mitigations = await getMits(link);
 
-          // Parsing the html code to turn it into text
-          var dom = new JSDOM(html);
-          var document = dom.window.document;
+      // Combining all the information picked out from horusec
+      vul = 'Severity: ' + severity + '\n' + 'File: ' + file.substring(file.indexOf(dir)) + line + code 
+           + details.substring(0, details.indexOf('For more information')) + '\n\n' + mitigations;
 
-          // Only getting the text content from the "Potential Mitigations" section of the URL
-          var html = document.getElementById('Potential_Mitigations');
-          var data = html.textContent;
+      // Getting vulnerability number
+      const num = parseInt(link.substring(link.lastIndexOf('/') + 1, link.lastIndexOf('.')));
 
-          // Formatting the text content to be readable
-          var mits = data.split('            ');
-          mits.shift();
-
-          var mitigations = 'Potential Mitigations:\n\n';
-
-          // Begin mits forEach loop
-          mits.forEach(mit => {
-            // Still formatting. This is creating new lines for each sub section
-            mit = mit.replace('Policy ', 'Policy\n');
-            mit = mit.replace('Requirements ', 'Requirements\n');
-            mit = mit.replace('Architecture and Design ', 'Architecture and Design\n');
-            mit = mit.replace('Implementation ', 'Implementation\n');
-            mit = mit.replace('Build and Compilation ', 'Build and Compilation\n');
-            mit = mit.replace('Testing ', 'Testing\n');
-            mit = mit.replace('Documentation ', 'Documentation\n');
-            mit = mit.replace('Bundling ', 'Bundling\n');
-            mit = mit.replace('Distribution ', 'Distribution\n');
-            mit = mit.replace('Installation ', 'Installation\n');
-            mit = mit.replace('System Configuration ', 'System Configuration\n');
-            mit = mit.replace('Operation ', 'Operation\n');
-            mit = mit.replace('Patching and Maintenance ', 'Patching and Maintenance\n');
-            mit = mit.replace('Porting ', 'Porting\n');
-
-            // Even more formatting. This looks for any capital letter surrounded by 2 lower case letters, then inserts a new line
-            const regex = /(?<=[a-z])[A-Z](?=[a-z])/;
-            var newStr = mit.replace(regex, "\n$&");
-            while(newStr !== mit) {
-              mit = newStr;
-              newStr = mit.replace(regex, "\n$&");
-            }
-            mitigations += mit + '\n';
-          }); // End mits forEach loop
-
-          // Attaching the link to the URL at the end of the mitigation techniques
-          mitigations += 'Link: ' + link;
-
-          // Combining all the information picked out from horusec
-          vul = 'Severity: ' + severity + '\n' + 'File: ' + file.substring(file.indexOf(dir)) + line + code 
-                + details.substring(0, details.indexOf('For more information')) + '\n\n' + mitigations;
-
-          // Getting vulnerability number
-          const num = link.substring(link.lastIndexOf('/') + 1, link.indexOf('.'));
-
-          // Organizing vulnerabilities (described by OWASP)
-          switch(num) {
+      // Organizing vulnerabilities (described by OWASP)
+      switch(num) {
             case 1345:
               brokenAccess.push(vul);
               break;
@@ -833,13 +847,13 @@ async function staticTest(dir) {
               break;
             default:
               misc.push(vul);
+              break;
           }
-        })
-        .catch(error => {
-          console.log(error);
-        }); // End GET request
+
+      resolve(vul);
     }
-  }); // End vulnArray forEach loop
+    }); // End vulnArray forEach loop
+  });
 
   // Emptying the newly created directory from the unzip command
   await new Promise((resolve, reject) => {
@@ -877,4 +891,68 @@ async function staticTest(dir) {
   });
 
   return [brokenAccess, cryptFailures, injection, insecureDesign, securityMisconf, outdatedComp, authFail, dataIntegrityFail, loggingFail, requestForg, misc];
+}
+
+async function getMits(link) {
+  var mitigations = 'Potential Mitigations:\n\n';
+
+  const axios = require('axios');
+
+  await new Promise((resolve, reject) => {
+    axios.get(link)
+        .then(response => {
+          // Getting the html code from the URL
+          const { JSDOM } = require('jsdom');
+          var html = response.data;
+
+          // Parsing the html code to turn it into text
+          var dom = new JSDOM(html);
+          var document = dom.window.document;
+
+          // Only getting the text content from the "Potential Mitigations" section of the URL
+          var html = document.getElementById('Potential_Mitigations');
+          var data = html.textContent;
+
+          // Formatting the text content to be readable
+          var mits = data.split('            ');
+          mits.shift();
+
+          // Begin mits forEach loop
+          mits.forEach(mit => {
+            // Still formatting. This is creating new lines for each sub section
+            mit = mit.replace('Policy ', 'Policy\n');
+            mit = mit.replace('Requirements ', 'Requirements\n');
+            mit = mit.replace('Architecture and Design ', 'Architecture and Design\n');
+            mit = mit.replace('Implementation ', 'Implementation\n');
+            mit = mit.replace('Build and Compilation ', 'Build and Compilation\n');
+            mit = mit.replace('Testing ', 'Testing\n');
+            mit = mit.replace('Documentation ', 'Documentation\n');
+            mit = mit.replace('Bundling ', 'Bundling\n');
+            mit = mit.replace('Distribution ', 'Distribution\n');
+            mit = mit.replace('Installation ', 'Installation\n');
+            mit = mit.replace('System Configuration ', 'System Configuration\n');
+            mit = mit.replace('Operation ', 'Operation\n');
+            mit = mit.replace('Patching and Maintenance ', 'Patching and Maintenance\n');
+            mit = mit.replace('Porting ', 'Porting\n');
+
+            // Even more formatting. This looks for any capital letter surrounded by 2 lower case letters, then inserts a new line
+            const regex = /(?<=[a-z])[A-Z](?=[a-z])/;
+            var newStr = mit.replace(regex, "\n$&");
+            while(newStr !== mit) {
+              mit = newStr;
+              newStr = mit.replace(regex, "\n$&");
+            }
+            mitigations += mit + '\n';
+          }); // End mits forEach loop
+
+          // Attaching the link to the URL at the end of the mitigation techniques
+          mitigations += 'Link: ' + link;
+          resolve(mitigations);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+  });
+
+  return mitigations;
 }
