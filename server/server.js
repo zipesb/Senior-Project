@@ -52,7 +52,6 @@ app.post('/upload', upload.single("file"), async (req, res) => {
 
 app.get('/results', (req, res) => {
   res.send(JSON.stringify(staticData));
-  console.log(staticData);
   staticData = 'Loading';
 });
 
