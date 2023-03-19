@@ -39,20 +39,21 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-var staticData = null;
+var staticData = 'Loading';
 app.post('/upload', upload.single("file"), async (req, res) => {
   const file = req.file;
   var dir = file.filename;
   dir = dir.substring(0, dir.indexOf('.'));
   staticData = await getStaticResult(dir);
 
-  
-  app.get('/results', (req, res) => {
-    res.send(JSON.stringify(staticData));
-    staticData = 'Loading';
-  });
 
   res.json(`Received File: ${dir}`);
+});
+
+app.get('/results', (req, res) => {
+  res.send(JSON.stringify(staticData));
+  console.log(staticData);
+  staticData = 'Loading';
 });
 
 app.listen(port, () => {
