@@ -15,11 +15,15 @@ function TestInfo(props){
     return(
         <div>
             <button className="dropdown" onClick={toggle}> 
-            <a className="testname">{testName}</a>
-            {open
-            ? <span class="fa-solid fa-angle-up fa-lg"/> 
-            : <span class="fa-solid fa-angle-down fa-lg"/>
-            }
+            <a className="buttonText">
+                <a className="testname">{testName}</a>
+                <a className="arrow">
+                {open
+                ? <span class="fa-solid fa-angle-up fa-lg"/> 
+                : <span class="fa-solid fa-angle-down fa-lg"/>
+                }
+                </a>
+            </a>
              </button>
             {open && (
                 <div className='content'> 

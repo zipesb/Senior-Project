@@ -10,10 +10,21 @@
     
 }
 
+.buttonText{
+    
+}
+
 .testname{
-    margin-right: 70%;
+    position: absolute;
+    left: 600px;
     font-size: 100%;  
     font-family: 'Segou UI';
+}
+
+.arrow{
+    position: absolute;
+    left: 1390px;
+    margin-bottom: 5%;
 }
 
 .toggle {
