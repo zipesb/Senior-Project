@@ -15,8 +15,8 @@
 }
 
 .testname{
-    position: absolute;
-    left: 600px;
+    position: relative;
+    right:250px;
     font-size: 100%;  
     font-family: 'Segou UI';
 }
@@ -24,7 +24,7 @@
 .arrow{
     position: absolute;
     left: 1390px;
-    margin-bottom: 5%;
+    margin-top: 3px;
 }
 
 .toggle {
