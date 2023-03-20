@@ -7,7 +7,7 @@ router.post('/', (req, res) => {
     
 
     setTimeout(() => {
-        console.log('file uploaded')
+        console.log(req.body);
         return res.status(200).json({ result: true, msg: 'file uploaded' });
     });
 })

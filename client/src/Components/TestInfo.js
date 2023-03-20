@@ -28,11 +28,12 @@ function TestInfo(props){
             {open && (
                 <div className='content'> 
                     {tests.map((test) => (
-                        <div className="test" key={test.id}>
+                        <div className="test" key={test.id} style={{ whiteSpace: "pre-wrap", overflow: "hidden", wordWrap: "break-word", overflowWrap: "break-word" }}>
                             <h2>{test.title}</h2>
-                            <p>{test.body}</p>
+                            <pre>{test.body}</pre>
                         </div>
-                    ))} 
+                    ))}
+                    {tests.length === 0 && <h2>No Results</h2>}
                 </div>
             )}
             
