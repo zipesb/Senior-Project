@@ -15,10 +15,12 @@
 }
 
 .testname{
+    text-align: left;
     position: relative;
     right:250px;
     font-size: 100%;  
-    font-family: 'Segou UI';
+    font-family: 'Segoe UI';
+    font-weight: 500;
 }
 
 .arrow{

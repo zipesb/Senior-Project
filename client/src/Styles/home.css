@@ -8,7 +8,7 @@
     right: 50%;
     font-size: 50px;
     color: black;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Segoe UI';
     padding-bottom: 10px;
 }
 
@@ -18,7 +18,7 @@
     right: 32%;
     font-size: 22px;
     color: black;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Segoe UI';
     padding-bottom: 10px;
     font-weight: lighter;
 }
@@ -59,4 +59,10 @@ em{
     color: white;
     font-size: 16px;
     font-weight: bold;
+}
+
+.App {
+    position: absolute;
+    top: 700px;
+    left: 500px;
 }
