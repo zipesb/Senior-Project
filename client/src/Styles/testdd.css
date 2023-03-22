@@ -1,0 +1,39 @@
+.dropdown {
+    margin-top: 2%;
+    margin-left: 27%;
+    max-height: 50px;
+    min-height: 50px;
+    max-width: 950px;
+    min-width: 950px;
+    border-color: grey;
+    font-size: 110%;
+    
+}
+
+.testname{
+    margin-right: 70%;
+    font-size: 100%;  
+    font-family: 'Segou UI';
+}
+
+.toggle {
+    margin-left :27%;
+}
+
+.content {
+    margin-left :27%;
+    margin-top: 10px;
+    border: 1px solid rgb(128, 123, 123, 0.5);
+    padding: 0.5rem;
+    max-width: 932px;
+}
+    
+.content-parent {
+    height: 0px;
+    overflow: hidden;
+    transition: height 5s ease-in-out;
+}
+    
+.content-show {
+    height: 200px;
+}

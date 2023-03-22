@@ -1,0 +1,78 @@
+.r1 {
+    margin-top: 63px;
+    text-align: center;
+    font-family: 'Segoe UI';
+    font-size: 90%;
+}
+
+h1 {
+    
+}
+
+h2 {
+    color: #2681f1;
+}
+
+pre {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.scan {
+    margin-top: 1%;
+    margin-left: 27%;
+    font-size: 20px;
+    font-family: 'Segoe UI';
+    color: teal;
+    display: flex;
+   
+}
+
+.ss {
+    font-family: 'Segoe UI';
+    font-size: 25px;
+    margin-left: 550px;
+
+}
+
+.sp1 {
+    margin-right: 100px;
+    text-align: center;
+
+}
+#em1 {
+    color: black;
+}
+
+.sp2 {
+    margin-right: 100px;
+    text-align: center;
+
+}
+.sp3 {
+    text-align: center;
+
+}
+
+.scanNumbers {
+    margin-top: 1%;
+    margin-left: 27.5%;
+    font-size: 20px;
+    font-family: 'Segoe UI';
+}
+
+.sp4 {
+    margin-right: 150px;
+}
+.sp5 {
+    margin-right: 150px;
+}
+
+.vt {
+    font-family: 'Segoe UI';
+    font-size: 25px;
+    margin-left: 550px;
+    margin-top: 2.2%;
+    color: black;
+}
