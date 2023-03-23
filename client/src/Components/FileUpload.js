@@ -8,8 +8,7 @@ function FileUpload({files, setFiles, removeFile}) {
     function uploadHandler(event) {
         const file = event.target.files[0];
         //file.isUploading = true;
-        //setFiles([...files, file])
-
+        //setFiles([...files, file]) 
         const formData = new FormData();
         formData.append ("file", file);
 
@@ -29,10 +28,7 @@ function FileUpload({files, setFiles, removeFile}) {
 
   return (
     <div className="App">
-        <input name="foo" type="file" onChange={uploadHandler}/>
-        <button>
-
-        </button> 
+        <input class="custom-file-input" type="file" onChange={uploadHandler}/>
     </div>
   );
 }

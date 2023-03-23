@@ -40,6 +40,8 @@ function Home() {
             onChange={(e) => setURL(e.target.value)}
           />
           <button className="buttonstyle" type="submit" onClick={securityTest}> <a> Scan </a> </button> 
+          <h3 className="and">AND</h3>
+          
           <FileUpload files={files} setFiles={setFiles} removeFile={removeFile}/>
     </div>
     );
