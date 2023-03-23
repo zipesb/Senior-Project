@@ -29,7 +29,7 @@ function TestInfo(props){
                 <div className='content'> 
                     {tests.map((test) => (
                         <div className="test" key={test.id} style={{ whiteSpace: "pre-wrap", overflow: "hidden", wordWrap: "break-word", overflowWrap: "break-word" }}>
-                            <h2>{test.title}</h2>
+                            <h2 style>{test.title}</h2>
                             <pre>{test.body}</pre>
                         </div>
                     ))}
