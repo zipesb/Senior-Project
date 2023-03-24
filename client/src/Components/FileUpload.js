@@ -30,9 +30,6 @@ function FileUpload({files, setFiles, removeFile}) {
   return (
     <div className="App">
         <input name="foo" type="file" onChange={uploadHandler}/>
-        <button>
-
-        </button> 
     </div>
   );
 }
