@@ -3,12 +3,10 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 
-function FileUpload({files, setFiles, removeFile}) {
+function FileUpload() {
 
     function uploadHandler(event) {
         const file = event.target.files[0];
-        //file.isUploading = true;
-        //setFiles([...files, file])
 
         const formData = new FormData();
         formData.append ("file", file);

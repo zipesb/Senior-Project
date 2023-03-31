@@ -17,8 +17,8 @@ function TestInfo(props){
             <button className="dropdown" onClick={toggle}> 
             <a className="testname">{testName}</a>
             {open
-            ? <span class="fa-solid fa-angle-up fa-lg"/> 
-            : <span class="fa-solid fa-angle-down fa-lg"/>
+            ? <span className="fa-solid fa-angle-up fa-lg"/> 
+            : <span className="fa-solid fa-angle-down fa-lg"/>
             }
              </button>
             {open && (

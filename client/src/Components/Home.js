@@ -7,6 +7,7 @@ function Home() {
     const [inputURL, setURL] = useState('');
     const navigate = useNavigate();
     const securityTest = () => {
+
         fetch('http://localhost:5000/server', {
             method: 'POST',
             headers: {
@@ -23,7 +24,7 @@ function Home() {
     };
 
     const [files, setFiles] = useState([{
-        name: "myFile.pdf"
+        name: "myFile.zip"
     }])
 
     function removeFile(filename) {
