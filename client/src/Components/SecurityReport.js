@@ -275,7 +275,7 @@ async function getData() {
     var data = await response.json();
 
     while(data === 'Loading') {
-        await new Promise(resolve => setTimeout(resolve, 10000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         console.log('Waiting...');
         response = await fetch('http://localhost:5000/results');
         data = await response.json();
