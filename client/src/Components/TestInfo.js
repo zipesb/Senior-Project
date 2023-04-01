@@ -5,7 +5,7 @@ import "../Styles/testdd.css";
 function TestInfo(props){
     const tests = props.tests;
     const testName = props.testName;
-    var isDone = props.isDone;
+    const isDone = props.isDone;
 
     const[open, setOpen] = useState(false);
 

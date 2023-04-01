@@ -17,7 +17,7 @@ function SecurityReport() {
     useEffect(() => {
         
         if(data === null) {
-            data = getData();
+            data = getData(time, setTime);
         }
         
         data.then(value => {
@@ -36,6 +36,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let cryptFailures = value[1];            
@@ -51,6 +52,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let injection = value[2];            
@@ -66,6 +68,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let insecureDesign = value[3];            
@@ -81,6 +84,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let securityMisconf = value[4];            
@@ -96,6 +100,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let outdatedComp = value[5];            
@@ -111,6 +116,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let authFail = value[6];            
@@ -126,6 +132,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let dataIntegrityFail = value[7];            
@@ -141,6 +148,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let loggingFail = value[8];            
@@ -156,6 +164,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let requestForg = value[9];            
@@ -171,6 +180,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let misc = value[10];            
@@ -186,6 +196,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             setDone(true);
@@ -245,7 +256,8 @@ function SecurityReport() {
     }
 
     const [done, setDone] = useState(false);
-
+    const [time, setTime] = useState(0);
+    const [count, setCount] = useState(0);
 
     return (
         <div>
@@ -254,7 +266,7 @@ function SecurityReport() {
             <h2>{location.state.url} </h2>
         </div>
 
-        <Scan/>
+        <Scan time={time} isDone={done} count={count}/>
 
         <h2 className="vt">Vulnerability Tests</h2>
 
@@ -275,12 +287,13 @@ function SecurityReport() {
     );
 }
 
-async function getData() {
+async function getData(time, setTime) {
     var response = await fetch('http://localhost:5000/results');
     var data = await response.json();
 
     while(data === 'Loading') {
         await new Promise(resolve => setTimeout(resolve, 1000));
+        setTime((time) => time + 1);
         console.log('Waiting...');
         response = await fetch('http://localhost:5000/results');
         data = await response.json();
