@@ -10,7 +10,10 @@ function SecurityReport() {
 
     // Test data from server goes here
 
-    const[tests, setTests] = useState([]);
+    const [tests, setTests] = useState([]);
+    const [done, setDone] = useState(false);
+    const [time, setTime] = useState(0);
+    const [count, setCount] = useState(0);
     
     var data = null;
 
@@ -254,10 +257,6 @@ function SecurityReport() {
         }
 
     }
-
-    const [done, setDone] = useState(false);
-    const [time, setTime] = useState(0);
-    const [count, setCount] = useState(0);
 
     return (
         <div>
