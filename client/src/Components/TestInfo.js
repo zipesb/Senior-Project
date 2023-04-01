@@ -5,13 +5,13 @@ import "../Styles/testdd.css";
 function TestInfo(props){
     const tests = props.tests;
     const testName = props.testName;
+    var isDone = props.isDone;
 
     const[open, setOpen] = useState(false);
 
     function toggle() {
         setOpen(!open);
     }
-
     return(
         <div>
             <button className="dropdown" onClick={toggle}> 
@@ -29,7 +29,8 @@ function TestInfo(props){
                             <pre>{test.body}</pre>
                         </div>
                     ))}
-                    {tests.length === 0 && <h2>No Results</h2>}
+                    {tests.length === 0 && isDone && <h2>No Results</h2>}
+                    {tests.length === 0 && !isDone && <h2>Loading...</h2>}
                 </div>
             )}
             

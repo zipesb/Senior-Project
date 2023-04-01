@@ -187,6 +187,8 @@ function SecurityReport() {
                 };
                 setTests(tests => [...tests, json]);
             }
+
+            setDone(true);
         });
     }, []);
 
@@ -242,6 +244,9 @@ function SecurityReport() {
 
     }
 
+    const [done, setDone] = useState(false);
+
+
     return (
         <div>
             <div className="r1">
@@ -253,17 +258,17 @@ function SecurityReport() {
 
         <h2 className="vt">Vulnerability Tests</h2>
 
-        <TestInfo testName="Broken Access Control" tests={bacTests}/>
-        <TestInfo testName="Cryptographic Failures" tests={cfTests}/>
-        <TestInfo testName="Injection" tests={inTests}/>
-        <TestInfo testName="Insecure Design" tests={insecureTests}/>
-        <TestInfo testName="Security Misconfiguration" tests={configTests}/>
-        <TestInfo testName="Vulnerable and Outdated Components" tests={componentTests}/>
-        <TestInfo testName="Identification and Authentication Failures" tests={authTests}/>
-        <TestInfo testName="Software and Data Integrity Failures" tests={integriyTests}/>
-        <TestInfo testName="Security Logging and Monitoring Failures" tests={loggingTests}/>
-        <TestInfo testName="Server-Side Request Forgery" tests={forgeryTests}/>
-        <TestInfo testName="Miscellaneous Vulnerabilities" tests={miscTests}/>
+        <TestInfo testName="Broken Access Control" tests={bacTests} isDone={done}/>
+        <TestInfo testName="Cryptographic Failures" tests={cfTests} isDone={done}/>
+        <TestInfo testName="Injection" tests={inTests} isDone={done}/>
+        <TestInfo testName="Insecure Design" tests={insecureTests} isDone={done}/>
+        <TestInfo testName="Security Misconfiguration" tests={configTests} isDone={done}/>
+        <TestInfo testName="Vulnerable and Outdated Components" tests={componentTests} isDone={done}/>
+        <TestInfo testName="Identification and Authentication Failures" tests={authTests} isDone={done}/>
+        <TestInfo testName="Software and Data Integrity Failures" tests={integriyTests} isDone={done}/>
+        <TestInfo testName="Security Logging and Monitoring Failures" tests={loggingTests} isDone={done}/>
+        <TestInfo testName="Server-Side Request Forgery" tests={forgeryTests} isDone={done}/>
+        <TestInfo testName="Miscellaneous Vulnerabilities" tests={miscTests} isDone={done}/>
         
             
         </div>
