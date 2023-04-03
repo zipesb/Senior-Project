@@ -13,7 +13,7 @@ function TestInfo(props){
         setOpen(!open);
     }
     return(
-        <div>
+        <div className="testInfo">
             <button className="dropdown" onClick={toggle}> 
             <a className="buttonText">
                 <a className="testname">{testName}</a>
@@ -28,9 +28,9 @@ function TestInfo(props){
             {open && (
                 <div className='content'> 
                     {tests.map((test) => (
-                        <div className="test" key={test.id} style={{ whiteSpace: "pre-wrap", overflow: "hidden", wordWrap: "break-word", overflowWrap: "break-word" }}>
-                            <h2 style>{test.title}</h2>
-                            <pre>{test.body}</pre>
+                        <div className="test" key={test.id} >
+                            <h2 className="testTitle">{test.title}</h2>
+                            <pre className="testBody">{test.body}</pre>
                         </div>
                     ))}
                     {tests.length === 0 && isDone && <h2>No Results</h2>}

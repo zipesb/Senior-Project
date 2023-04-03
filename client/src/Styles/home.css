@@ -55,6 +55,33 @@ em{
     cursor: pointer;
 }
 
+@keyframes fadeIn { 
+    0% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 1;
+    }
+  }
+
+.ScanWarning{
+    border-style: solid;
+    position: absolute;
+    top: 49%;
+    left: 71%;
+    font-size: 15px;
+    font-family: 'Segoe UI';
+    text-align: center;
+    color: black;
+    border-color: black;
+    width: 120px;
+    padding: 10px;
+    border-width: 2px;
+    border-radius: 10px;
+    animation: fadeIn 0.1s;
+}
+
 .buttonstyle:hover{
     background-color: rgb(114, 114, 234);
   }
@@ -74,33 +101,30 @@ em{
 .and{
     position: absolute;
     top: 50%;
-    left: 45%;
+    left: 46.5%;
     font-family:'Segoe UI';
 
 }
 
 .custom-file-input::-webkit-file-upload-button {
     visibility: hidden;
-  }
-  .custom-file-input::before {
+}
+
+.custom-file-input::before {
     content: 'Upload Source Files';
     color: white;
     display: inline-block;
     border: 1.5px solid #999;
     background-color: rgb(120, 120, 236);
     border-radius: 3px;
-    padding: 10px 20px;
+    padding: 15px 20px 15px 20px;
     cursor: pointer;
     font-weight: 700;
-    font-size: 10pt;
+    font-size: 15pt;
     font-family: 'Segoe UI';
     border: 2px solid #1f6cc9;
- 
-  }
-  .custom-file-input:hover {
-     
-  }
-  .custom-file-input:active::before {
+}
+
+.custom-file-input:active::before {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
-  }
-  
+}

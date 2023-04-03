@@ -1,3 +1,7 @@
+.testInfo {
+    font-family: 'Segoe UI';
+}
+
 .dropdown {
     margin-top: 2%;
     margin-left: 27%;
@@ -49,4 +53,12 @@
     
 .content-show {
     height: 200px;
+}
+
+.testTitle {
+    
+}
+
+.testBody {
+    font-family: 'Segoe UI';
 }
