@@ -10,14 +10,17 @@ function SecurityReport() {
 
     // Test data from server goes here
 
-    const[tests, setTests] = useState([]);
+    const [tests, setTests] = useState([]);
+    const [done, setDone] = useState(false);
+    const [time, setTime] = useState(0);
+    const [count, setCount] = useState(0);
     
     var data = null;
 
     useEffect(() => {
         
         if(data === null) {
-            data = getData();
+            data = getData(time, setTime);
         }
         
         data.then(value => {
@@ -36,6 +39,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let cryptFailures = value[1];            
@@ -51,6 +55,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let injection = value[2];            
@@ -66,6 +71,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let insecureDesign = value[3];            
@@ -81,6 +87,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let securityMisconf = value[4];            
@@ -96,6 +103,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let outdatedComp = value[5];            
@@ -111,6 +119,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let authFail = value[6];            
@@ -126,6 +135,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let dataIntegrityFail = value[7];            
@@ -141,6 +151,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let loggingFail = value[8];            
@@ -156,6 +167,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let requestForg = value[9];            
@@ -171,6 +183,7 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
 
             let misc = value[10];            
@@ -186,7 +199,10 @@ function SecurityReport() {
                     id: id
                 };
                 setTests(tests => [...tests, json]);
+                setCount((count) => count + 1);
             }
+
+            setDone(true);
         });
     }, []);
 
@@ -249,33 +265,34 @@ function SecurityReport() {
             <h2>{location.state.url} </h2>
         </div>
 
-        <Scan/>
+        <Scan time={time} isDone={done} count={count}/>
 
         <h2 className="vt">Vulnerability Tests</h2>
 
-        <TestInfo testName="Broken Access Control" tests={bacTests}/>
-        <TestInfo testName="Cryptographic Failures" tests={cfTests}/>
-        <TestInfo testName="Injection" tests={inTests}/>
-        <TestInfo testName="Insecure Design" tests={insecureTests}/>
-        <TestInfo testName="Security Misconfiguration" tests={configTests}/>
-        <TestInfo testName="Vulnerable and Outdated Components" tests={componentTests}/>
-        <TestInfo testName="Identification and Authentication Failures" tests={authTests}/>
-        <TestInfo testName="Software and Data Integrity Failures" tests={integriyTests}/>
-        <TestInfo testName="Security Logging and Monitoring Failures" tests={loggingTests}/>
-        <TestInfo testName="Server-Side Request Forgery" tests={forgeryTests}/>
-        <TestInfo testName="Miscellaneous Vulnerabilities" tests={miscTests}/>
+        <TestInfo testName="Broken Access Control" tests={bacTests} isDone={done}/>
+        <TestInfo testName="Cryptographic Failures" tests={cfTests} isDone={done}/>
+        <TestInfo testName="Injection" tests={inTests} isDone={done}/>
+        <TestInfo testName="Insecure Design" tests={insecureTests} isDone={done}/>
+        <TestInfo testName="Security Misconfiguration" tests={configTests} isDone={done}/>
+        <TestInfo testName="Vulnerable and Outdated Components" tests={componentTests} isDone={done}/>
+        <TestInfo testName="Identification and Authentication Failures" tests={authTests} isDone={done}/>
+        <TestInfo testName="Software and Data Integrity Failures" tests={integriyTests} isDone={done}/>
+        <TestInfo testName="Security Logging and Monitoring Failures" tests={loggingTests} isDone={done}/>
+        <TestInfo testName="Server-Side Request Forgery" tests={forgeryTests} isDone={done}/>
+        <TestInfo testName="Miscellaneous Vulnerabilities" tests={miscTests} isDone={done}/>
         
             
         </div>
     );
 }
 
-async function getData() {
+async function getData(time, setTime) {
     var response = await fetch('http://localhost:5000/results');
     var data = await response.json();
 
     while(data === 'Loading') {
-        await new Promise(resolve => setTimeout(resolve, 10000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        setTime((time) => time + 1);
         console.log('Waiting...');
         response = await fetch('http://localhost:5000/results');
         data = await response.json();

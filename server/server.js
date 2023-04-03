@@ -51,7 +51,8 @@ app.post('/upload', upload.single("file"), async (req, res) => {
 });
 
 app.get('/results', (req, res) => {
-  res.send(JSON.stringify(staticData));
+  res.write(JSON.stringify(staticData));
+  res.end();
   staticData = 'Loading';
 });
 
