@@ -14,7 +14,6 @@ function Scan(props){
             <div className="scan">
             <p className="sp1">Scan Duration<br></br><em id="em1">{min} min {sec} sec</em></p>   
             {isDone && <p className="sp2">Vulnerabilities Found<br></br><em id="em1">{count}</em></p>}
-            {!isDone && <p className="sp2">Vulnerabilities Found<br></br><em id="em1">Loading</em></p>}
             {isDone && <p className="sp3">Scan Status<br></br><em id="em1">Finished</em></p>}
             {!isDone && <p className="sp3">Scan Status<br></br><em id="em1">Loading</em></p>}
             </div>
