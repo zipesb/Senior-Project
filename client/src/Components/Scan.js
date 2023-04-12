@@ -1,5 +1,4 @@
 
-// Dummy Scan, proper implementation later
 
 function Scan(){
 

@@ -9,6 +9,41 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+//wfuzz endpoint
+//needs to be cleaned up, should call multiple different wfuzz commands to conduct different types of fuzzing
+//CRITICAL: some of this is hardcoded for presentation 2 and will need to be adjusted
+//should also parse results from wfuzz before passing them back to the front end
+app.get('/wfuzz', (req, res) => {
+  // See if is being called
+  console.log("called wfuzz endpoint successfully");
+
+  // Get the command from the query parameters
+  const { command } = req.query;
+
+  // Split the command into an array of arguments
+  //const args = command.split(' ');
+
+  let output = "";
+
+  // Spawn the child process
+  const childProcess = exec(command, (error, stdout)=>{
+    console.log(stdout);
+    console.log(error);
+    output = stdout;
+  });
+
+  // Collect the output from the child process
+  //let output = '';
+  //childProcess.stdout.on('data', (data) => {
+  //  output += data.toString();
+  //});
+
+  // Listen for the child process to exit
+  childProcess.on('close', (code) => {
+    res.json({ output, code });
+  });
+});
+
 //const uploadRoutes = require('./upload');
 
 //app.use(require("./routes/record"));
@@ -16,7 +51,7 @@ app.use(express.json());
 // get driver connection
 
 const dbo = require("./db/conn");
-
+ 
 //app.use('/upload', uploadRoutes);
 
 app.post('/server', (req, res) => {
@@ -27,6 +62,7 @@ app.post('/server', (req, res) => {
 
 const multer = require("multer");
 const { stat } = require("fs");
+const { spawn } = require("child_process");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -58,7 +94,7 @@ app.get('/results', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
-
+ 
 
 async function getStaticResult(dir) {
   var data = await staticTest(dir);
@@ -85,7 +121,7 @@ async function staticTest(dir) {
       else {
         resolve(stdout);
       }
-    });
+  });
   });
 
   // Static test the code in the zip file, format the results
@@ -894,7 +930,7 @@ async function getMits(link) {
         .catch((error) => {
           reject(error);
         });
-  });
+});
 
   return mitigations;
 }

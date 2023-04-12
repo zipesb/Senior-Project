@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../Styles/home.css";
@@ -20,7 +21,20 @@ function Home() {
                 url: inputURL
             }
         });
+
+        // this is where wfuzz is being called (call goes to endpoint in the backend that actually executes the wfuzz command)
+        // CRITICAL: some of this is hardcoded for presentation 2 and will need to be adjusted
+        // should eventually just pass the website name, all different wfuzz commands should be handled in the backend (e.g. pass website name to backend, backend runs a number of predetermined wfuzz commands with specific params)
+        axios.get('http://localhost:5000/wfuzz', { params: { command: 'wsl wfuzz -z file,wordlists/paths.txt --hc 500 http://localhost:3001/FUZZ' } })
+        .then((response) => {
+          console.log(`stdout: ${response.data.output}`);
+          console.log(`exit code: ${response.data.code}`);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     };
+    
 
     const [files, setFiles] = useState([{
         name: "myFile.pdf"
