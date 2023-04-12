@@ -26,17 +26,27 @@ function SecurityReport() {
         data.then(value => {
             console.log(value);
 
+            const regex = /<a.*?>|<\/a>/g;
+
             let brokenAccess = value[0];            
             for (let i = 0; i < brokenAccess.length; i++) {
                 let category = 'Broken Access Control';
                 let title = 'Test ' + (i+1);
-                let body = brokenAccess[i];
+                let contents = brokenAccess[i];
+                let body = contents.substring(0, contents.indexOf('<table'));
+                let mit = '';
+                if(contents.indexOf('<table') > 0) {
+                    mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
+                }
+                mit = mit.replace(regex, "");
+
                 let id = i;
                 let json = {
                     category: category,
                     title: title,
                     body: body,
-                    id: id
+                    id: id,
+                    mit: mit
                 };
                 setTests(tests => [...tests, json]);
                 setCount((count) => count + 1);
@@ -46,13 +56,21 @@ function SecurityReport() {
             for (let i = 0; i < cryptFailures.length; i++) {
                 let category = 'Cryptographic Failures';
                 let title = 'Test ' + (i+1);
-                let body = cryptFailures[i];
+                let contents = cryptFailures[i];
+                let body = contents.substring(0, contents.indexOf('<table'))
+                let mit = '';
+                if(contents.indexOf('<table') > 0) {
+                    mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
+                }
+                mit = mit.replace(regex, "");
+
                 let id = i;
                 let json = {
                     category: category,
                     title: title,
                     body: body,
-                    id: id
+                    id: id,
+                    mit: mit
                 };
                 setTests(tests => [...tests, json]);
                 setCount((count) => count + 1);
@@ -62,13 +80,21 @@ function SecurityReport() {
             for (let i = 0; i < injection.length; i++) {
                 let category = 'Injection';
                 let title = 'Test ' + (i+1);
-                let body = injection[i];
+                let contents = injection[i];
+                let body = contents.substring(0, contents.indexOf('<table'));
+                let mit = '';
+                if(contents.indexOf('<table') > 0) {
+                    mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
+                }
+                mit = mit.replace(regex, "");
+
                 let id = i;
                 let json = {
                     category: category,
                     title: title,
                     body: body,
-                    id: id
+                    id: id,
+                    mit: mit
                 };
                 setTests(tests => [...tests, json]);
                 setCount((count) => count + 1);
@@ -78,13 +104,21 @@ function SecurityReport() {
             for (let i = 0; i < insecureDesign.length; i++) {
                 let category = 'Insecure Design';
                 let title = 'Test ' + (i+1);
-                let body = insecureDesign[i];
+                let contents = insecureDesign[i];
+                let body = contents.substring(0, contents.indexOf('<table'));
+                let mit = '';
+                if(contents.indexOf('<table') > 0) {
+                    mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
+                }
+                mit = mit.replace(regex, "");
+
                 let id = i;
                 let json = {
                     category: category,
                     title: title,
                     body: body,
-                    id: id
+                    id: id,
+                    mit: mit
                 };
                 setTests(tests => [...tests, json]);
                 setCount((count) => count + 1);
@@ -94,13 +128,21 @@ function SecurityReport() {
             for (let i = 0; i < securityMisconf.length; i++) {
                 let category = 'Security Misconfiguration';
                 let title = 'Test ' + (i+1);
-                let body = securityMisconf[i];
+                let contents = securityMisconf[i];
+                let body = contents.substring(0, contents.indexOf('<table'))
+                let mit = '';
+                if(contents.indexOf('<table') > 0) {
+                    mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
+                }
+                mit = mit.replace(regex, "");
+
                 let id = i;
                 let json = {
                     category: category,
                     title: title,
                     body: body,
-                    id: id
+                    id: id,
+                    mit: mit
                 };
                 setTests(tests => [...tests, json]);
                 setCount((count) => count + 1);
@@ -110,13 +152,21 @@ function SecurityReport() {
             for (let i = 0; i < outdatedComp.length; i++) {
                 let category = 'Vulnerable and Outdated Components';
                 let title = 'Test ' + (i+1);
-                let body = outdatedComp[i];
+                let contents = outdatedComp[i];
+                let body = contents.substring(0, contents.indexOf('<table'))
+                let mit = '';
+                if(contents.indexOf('<table') > 0) {
+                    mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
+                }
+                mit = mit.replace(regex, "");
+
                 let id = i;
                 let json = {
                     category: category,
                     title: title,
                     body: body,
-                    id: id
+                    id: id,
+                    mit: mit
                 };
                 setTests(tests => [...tests, json]);
                 setCount((count) => count + 1);
@@ -126,13 +176,21 @@ function SecurityReport() {
             for (let i = 0; i < authFail.length; i++) {
                 let category = 'Identification and Authentication Failures';
                 let title = 'Test ' + (i+1);
-                let body = authFail[i];
+                let contents = authFail[i];
+                let body = contents.substring(0, contents.indexOf('<table'))
+                let mit = '';
+                if(contents.indexOf('<table') > 0) {
+                    mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
+                }
+                mit = mit.replace(regex, "");
+
                 let id = i;
                 let json = {
                     category: category,
                     title: title,
                     body: body,
-                    id: id
+                    id: id,
+                    mit: mit
                 };
                 setTests(tests => [...tests, json]);
                 setCount((count) => count + 1);
@@ -142,13 +200,21 @@ function SecurityReport() {
             for (let i = 0; i < dataIntegrityFail.length; i++) {
                 let category = 'Software and Data Integrity Failures';
                 let title = 'Test ' + (i+1);
-                let body = dataIntegrityFail[i];
+                let contents = dataIntegrityFail[i];
+                let body = contents.substring(0, contents.indexOf('<table'))
+                let mit = '';
+                if(contents.indexOf('<table') > 0) {
+                    mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
+                }
+                mit = mit.replace(regex, "");
+
                 let id = i;
                 let json = {
                     category: category,
                     title: title,
                     body: body,
-                    id: id
+                    id: id,
+                    mit: mit
                 };
                 setTests(tests => [...tests, json]);
                 setCount((count) => count + 1);
@@ -158,13 +224,21 @@ function SecurityReport() {
             for (let i = 0; i < loggingFail.length; i++) {
                 let category = 'Security Logging and Monitoring Failures';
                 let title = 'Test ' + (i+1);
-                let body = loggingFail[i];
+                let contents = loggingFail[i];
+                let body = contents.substring(0, contents.indexOf('<table'))
+                let mit = '';
+                if(contents.indexOf('<table') > 0) {
+                    mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
+                }
+                mit = mit.replace(regex, "");
+
                 let id = i;
                 let json = {
                     category: category,
                     title: title,
                     body: body,
-                    id: id
+                    id: id,
+                    mit: mit
                 };
                 setTests(tests => [...tests, json]);
                 setCount((count) => count + 1);
@@ -174,13 +248,21 @@ function SecurityReport() {
             for (let i = 0; i < requestForg.length; i++) {
                 let category = 'Server-Side Request Forgery';
                 let title = 'Test ' + (i+1);
-                let body = requestForg[i];
+                let contents = requestForg[i];
+                let body = contents.substring(0, contents.indexOf('<table'))
+                let mit = '';
+                if(contents.indexOf('<table') > 0) {
+                    mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
+                }
+                mit = mit.replace(regex, "");
+
                 let id = i;
                 let json = {
                     category: category,
                     title: title,
                     body: body,
-                    id: id
+                    id: id,
+                    mit: mit
                 };
                 setTests(tests => [...tests, json]);
                 setCount((count) => count + 1);
@@ -190,13 +272,21 @@ function SecurityReport() {
             for (let i = 0; i < misc.length; i++) {
                 let category = 'Miscellaneous';
                 let title = 'Test ' + (i+1);
-                let body = misc[i];
+                let contents = misc[i];
+                let body = contents.substring(0, contents.indexOf('<table'))
+                let mit = '';
+                if(contents.indexOf('<table') > 0) {
+                    mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
+                }
+                mit = mit.replace(regex, "");
+
                 let id = i;
                 let json = {
                     category: category,
                     title: title,
                     body: body,
-                    id: id
+                    id: id,
+                    mit: mit
                 };
                 setTests(tests => [...tests, json]);
                 setCount((count) => count + 1);

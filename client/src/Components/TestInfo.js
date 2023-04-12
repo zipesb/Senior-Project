@@ -31,6 +31,7 @@ function TestInfo(props){
                         <div className="test" key={test.id} >
                             <h2 className="testTitle">{test.title}</h2>
                             <pre className="testBody">{test.body}</pre>
+                            <pre dangerouslySetInnerHTML={{ __html: test.mit}} />
                         </div>
                     ))}
                     {tests.length === 0 && isDone && <h2>No Results</h2>}
