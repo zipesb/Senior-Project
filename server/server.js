@@ -169,8 +169,7 @@ async function staticTest(dir) {
 
       // Combining all the information picked out from horusec
       vul = 'Severity: ' + severity + '\n\n' + 'File: ' + file.substring(file.indexOf(dir)) + '\n' + line + '\n' + code + '\n'
-           + details.substring(0, details.indexOf('For more information')) + '\n\n' + mitigations;
-
+           + details.substring(0, details.indexOf('For more information')) + '\n\n' + mitigations + '\n\n' + 'Link: ' + link;
       // Getting vulnerability number
       const num = parseInt(link.substring(link.lastIndexOf('/') + 1, link.lastIndexOf('.')));
 

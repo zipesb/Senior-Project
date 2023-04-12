@@ -37,3 +37,8 @@
 .content-show {
     height: 200px;
 }
+
+.subheading {
+    font-weight: bold;
+    font-size: 15px;
+}

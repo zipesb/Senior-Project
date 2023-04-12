@@ -33,7 +33,7 @@ function SecurityReport() {
                 let category = 'Broken Access Control';
                 let title = 'Test ' + (i+1);
                 let contents = brokenAccess[i];
-                let body = contents.substring(0, contents.indexOf('<table'))
+                let body = contents.substring(0, contents.indexOf('<table'));
                 let mit = '';
                 if(contents.indexOf('<table') > 0) {
                     mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
@@ -81,7 +81,7 @@ function SecurityReport() {
                 let category = 'Injection';
                 let title = 'Test ' + (i+1);
                 let contents = injection[i];
-                let body = contents.substring(0, contents.indexOf('<table'))
+                let body = contents.substring(0, contents.indexOf('<table'));
                 let mit = '';
                 if(contents.indexOf('<table') > 0) {
                     mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
@@ -105,7 +105,7 @@ function SecurityReport() {
                 let category = 'Insecure Design';
                 let title = 'Test ' + (i+1);
                 let contents = insecureDesign[i];
-                let body = contents.substring(0, contents.indexOf('<table'))
+                let body = contents.substring(0, contents.indexOf('<table'));
                 let mit = '';
                 if(contents.indexOf('<table') > 0) {
                     mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
