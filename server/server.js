@@ -169,8 +169,7 @@ async function staticTest(dir) {
 
       // Combining all the information picked out from horusec
       vul = 'Severity: ' + severity + '\n\n' + 'File: ' + file.substring(file.indexOf(dir)) + '\n' + line + '\n' + code + '\n'
-           + details.substring(0, details.indexOf('For more information')) + '\n\n' + mitigations;
-
+           + details.substring(0, details.indexOf('For more information')) + '\n\n' + mitigations + '\n\n' + 'Link: ' + link;
       // Getting vulnerability number
       const num = parseInt(link.substring(link.lastIndexOf('/') + 1, link.lastIndexOf('.')));
 
@@ -853,9 +852,16 @@ async function getMits(link) {
           var document = dom.window.document;
 
           // Only getting the text content from the "Potential Mitigations" section of the URL
-          var html = document.getElementById('Potential_Mitigations');
-          var data = html.textContent;
+          var html = document.getElementById('Potential_Mitigations').outerHTML;
+          var range = document.createRange();
+          var fragment = range.createContextualFragment(html);
+          var divElement = fragment.querySelector('#Potential_Mitigations');
+          var contents = divElement.getElementsByClassName('Detail')[0];
+          var data = contents.textContent;
+          mitigations += contents.outerHTML;
+          resolve(mitigations);
 
+          /*
           // Formatting the text content to be readable
           var mits = data.split('            ');
           mits.shift();
@@ -890,7 +896,7 @@ async function getMits(link) {
 
           // Attaching the link to the URL at the end of the mitigation techniques
           mitigations += 'Link: ' + link;
-          resolve(mitigations);
+          resolve(mitigations);*/
         })
         .catch((error) => {
           reject(error);

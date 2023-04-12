@@ -13,20 +13,25 @@ function TestInfo(props){
         setOpen(!open);
     }
     return(
-        <div>
+        <div className="testInfo">
             <button className="dropdown" onClick={toggle}> 
-            <a className="testname">{testName}</a>
-            {open
-            ? <span className="fa-solid fa-angle-up fa-lg"/> 
-            : <span className="fa-solid fa-angle-down fa-lg"/>
-            }
+            <a className="buttonText">
+                <a className="testname">{testName}</a>
+                <a className="arrow">
+                {open
+                ? <span class="fa-solid fa-angle-up fa-lg"/> 
+                : <span class="fa-solid fa-angle-down fa-lg"/>
+                }
+                </a>
+            </a>
              </button>
             {open && (
                 <div className='content'> 
                     {tests.map((test) => (
-                        <div className="test" key={test.id} style={{ whiteSpace: "pre-wrap", overflow: "hidden", wordWrap: "break-word", overflowWrap: "break-word" }}>
-                            <h2>{test.title}</h2>
-                            <pre>{test.body}</pre>
+                        <div className="test" key={test.id} >
+                            <h2 className="testTitle">{test.title}</h2>
+                            <pre className="testBody">{test.body}</pre>
+                            <pre dangerouslySetInnerHTML={{ __html: test.mit}} />
                         </div>
                     ))}
                     {tests.length === 0 && isDone && <h2>No Results</h2>}

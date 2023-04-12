@@ -1,3 +1,7 @@
+.testInfo {
+    font-family: 'Segoe UI';
+}
+
 .dropdown {
     margin-top: 2%;
     margin-left: 27%;
@@ -10,10 +14,23 @@
     
 }
 
+.buttonText{
+    
+}
+
 .testname{
-    margin-right: 70%;
+    text-align: left;
+    position: relative;
+    right:250px;
     font-size: 100%;  
-    font-family: 'Segou UI';
+    font-family: 'Segoe UI';
+    font-weight: 500;
+}
+
+.arrow{
+    position: absolute;
+    left: 1390px;
+    margin-top: 3px;
 }
 
 .toggle {
@@ -36,4 +53,16 @@
     
 .content-show {
     height: 200px;
+}
+
+.testTitle {
+    
+}
+
+.testBody {
+    font-family: 'Segoe UI';
+}
+.subheading {
+    font-weight: bold;
+    font-size: 15px;
 }
