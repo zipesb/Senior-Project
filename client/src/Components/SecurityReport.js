@@ -18,7 +18,10 @@ function SecurityReport() {
     var data = null;
 
     useEffect(() => {
-        
+        const timer = setInterval(() => {
+            setTime(time => time + 1);
+        }, 1000);
+
         if(data === null) {
             data = getData(time, setTime);
         }
@@ -293,6 +296,7 @@ function SecurityReport() {
             }
 
             setDone(true);
+            clearInterval(timer);
         });
     }, []);
 
@@ -348,6 +352,7 @@ function SecurityReport() {
 
     }
 
+    
     return (
         <div>
             <div className="r1">
@@ -379,10 +384,8 @@ function SecurityReport() {
 async function getData(time, setTime) {
     var response = await fetch('http://localhost:5000/results');
     var data = await response.json();
-
     while(data === 'Loading') {
         await new Promise(resolve => setTimeout(resolve, 1000));
-        setTime((time) => time + 1);
         console.log('Waiting...');
         response = await fetch('http://localhost:5000/results');
         data = await response.json();
