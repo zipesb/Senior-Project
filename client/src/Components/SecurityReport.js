@@ -30,6 +30,8 @@ function SecurityReport() {
             console.log(value);
 
             const regex = /<a.*?>|<\/a>/g;
+            const regex2 = /<p><\/p>/g;
+            const regex3 = /<div class="indent"> <\/div>/g;
 
             let brokenAccess = value[0];            
             for (let i = 0; i < brokenAccess.length; i++) {
@@ -42,6 +44,8 @@ function SecurityReport() {
                     mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
                 }
                 mit = mit.replace(regex, "");
+                mit = mit.replace(regex2, "");
+                mit = mit.replace(regex3, "");
 
                 let id = i;
                 let json = {
@@ -66,6 +70,8 @@ function SecurityReport() {
                     mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
                 }
                 mit = mit.replace(regex, "");
+                mit = mit.replace(regex2, "");
+                mit = mit.replace(regex3, "");
 
                 let id = i;
                 let json = {
@@ -90,6 +96,8 @@ function SecurityReport() {
                     mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
                 }
                 mit = mit.replace(regex, "");
+                mit = mit.replace(regex2, "");
+                mit = mit.replace(regex3, "");
 
                 let id = i;
                 let json = {
@@ -114,6 +122,8 @@ function SecurityReport() {
                     mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
                 }
                 mit = mit.replace(regex, "");
+                mit = mit.replace(regex2, "");
+                mit = mit.replace(regex3, "");
 
                 let id = i;
                 let json = {
@@ -138,6 +148,8 @@ function SecurityReport() {
                     mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
                 }
                 mit = mit.replace(regex, "");
+                mit = mit.replace(regex2, "");
+                mit = mit.replace(regex3, "");
 
                 let id = i;
                 let json = {
@@ -162,6 +174,8 @@ function SecurityReport() {
                     mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
                 }
                 mit = mit.replace(regex, "");
+                mit = mit.replace(regex2, "");
+                mit = mit.replace(regex3, "");
 
                 let id = i;
                 let json = {
@@ -186,6 +200,8 @@ function SecurityReport() {
                     mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
                 }
                 mit = mit.replace(regex, "");
+                mit = mit.replace(regex2, "");
+                mit = mit.replace(regex3, "");
 
                 let id = i;
                 let json = {
@@ -210,6 +226,8 @@ function SecurityReport() {
                     mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
                 }
                 mit = mit.replace(regex, "");
+                mit = mit.replace(regex2, "");
+                mit = mit.replace(regex3, "");
 
                 let id = i;
                 let json = {
@@ -234,6 +252,8 @@ function SecurityReport() {
                     mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
                 }
                 mit = mit.replace(regex, "");
+                mit = mit.replace(regex2, "");
+                mit = mit.replace(regex3, "");
 
                 let id = i;
                 let json = {
@@ -258,6 +278,8 @@ function SecurityReport() {
                     mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
                 }
                 mit = mit.replace(regex, "");
+                mit = mit.replace(regex2, "");
+                mit = mit.replace(regex3, "");
 
                 let id = i;
                 let json = {
@@ -282,6 +304,8 @@ function SecurityReport() {
                     mit = contents.substring(contents.indexOf('<table'), contents.indexOf('</table>') + 8);
                 }
                 mit = mit.replace(regex, "");
+                mit = mit.replace(regex2, "");
+                mit = mit.replace(regex3, "");
 
                 let id = i;
                 let json = {
