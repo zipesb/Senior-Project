@@ -62,6 +62,9 @@
 .testBody {
     font-family: 'Segoe UI';
 }
+.extraBody {
+    font-family: 'Segoe UI';
+}
 .subheading {
     font-weight: bold;
     font-size: 15px;
